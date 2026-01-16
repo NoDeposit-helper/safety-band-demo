@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Lost Person Safety</title>
+</head>
+<body style="font-family:Arial;text-align:center;padding:30px;">
+  <h2>Lost-Person Safety Wristband</h2>
+  <p>Allow location to help reunite with family</p>
+
+  <button onclick="getLocation()" style="font-size:18px;padding:10px 20px;">
+    Allow Location
+  </button>
+
+  <p id="result"></p>
+
+  <script>
+    function getLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+      } else {
+        document.getElementById("result").innerHTML = "GPS not supported";
+      }
+    }
+
+    function showPosition(position) {
+      let lat = position.coords.latitude;
+      let lon = position.coords.longitude;
+
+      document.getElementById("result").innerHTML =
+        "Location detected:<br>" +
+        "Latitude: " + lat + "<br>" +
+        "Longitude: " + lon + "<br><br>" +
+        "<a target='_blank' href='https://www.google.com/maps?q=" + lat + "," + lon + "'>Open in Google Maps</a>";
+    }
+  </script>
+</body>
+</html>
