@@ -1,37 +1,176 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Lost Person Safety</title>
+<meta charset="UTF-8">
+<title>Lost-Person Safety Wristband</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f6f8;
+  margin: 0;
+  padding: 0;
+}
+.container {
+  max-width: 420px;
+  margin: auto;
+  background: #ffffff;
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+h2 {
+  text-align: center;
+  color: #1a3d7c;
+}
+.section {
+  margin-bottom: 15px;
+}
+.label {
+  font-weight: bold;
+  color: #333;
+}
+.value {
+  margin-top: 4px;
+  font-size: 16px;
+}
+button {
+  width: 100%;
+  padding: 12px;
+  background: #1a3d7c;
+  color: #fff;
+  border: none;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+button:hover {
+  background: #0f2c5c;
+}
+.lang-buttons button {
+  background: #ccc;
+  color: #000;
+  margin: 3px 0;
+}
+.footer {
+  text-align: center;
+  font-size: 13px;
+  margin-top: 15px;
+  color: #555;
+}
+</style>
+
+<script>
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else {
+    document.getElementById("location").innerHTML = "GPS not supported.";
+  }
+}
+
+function showPosition(position) {
+  let lat = position.coords.latitude;
+  let lon = position.coords.longitude;
+  let mapLink = "https://www.google.com/maps?q=" + lat + "," + lon;
+
+  document.getElementById("location").innerHTML =
+    "📍 Location detected successfully<br>" +
+    "<a href='" + mapLink + "' target='_blank'>Open in Google Maps</a><br><br>" +
+    "Please call the family using the number shown above.";
+}
+
+function setLang(lang) {
+  document.getElementById("en").style.display = "none";
+  document.getElementById("mr").style.display = "none";
+  document.getElementById("hi").style.display = "none";
+  document.getElementById(lang).style.display = "block";
+}
+</script>
 </head>
-<body style="font-family:Arial;text-align:center;padding:30px;">
-  <h2>Lost-Person Safety Wristband</h2>
-  <p>Allow location to help reunite with family</p>
 
-  <button onclick="getLocation()" style="font-size:18px;padding:10px 20px;">
-    Allow Location
-  </button>
+<body>
 
-  <p id="result"></p>
+<div class="container">
 
-  <script>
-    function getLocation() {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition);
-      } else {
-        document.getElementById("result").innerHTML = "GPS not supported";
-      }
-    }
+<h2>Lost-Person Safety Wristband</h2>
 
-    function showPosition(position) {
-      let lat = position.coords.latitude;
-      let lon = position.coords.longitude;
+<div class="lang-buttons">
+  <button onclick="setLang('en')">English</button>
+  <button onclick="setLang('mr')">मराठी</button>
+  <button onclick="setLang('hi')">हिंदी</button>
+</div>
 
-      document.getElementById("result").innerHTML =
-        "Location detected:<br>" +
-        "Latitude: " + lat + "<br>" +
-        "Longitude: " + lon + "<br><br>" +
-        "<a target='_blank' href='https://www.google.com/maps?q=" + lat + "," + lon + "'>Open in Google Maps</a>";
-    }
-  </script>
+<!-- ENGLISH -->
+<div id="en">
+  <div class="section">
+    <div class="label">Name of Person</div>
+    <div class="value">Rahul Patil</div>
+  </div>
+
+  <div class="section">
+    <div class="label">Emergency Contact</div>
+    <div class="value">📞 9XXXXXXXXX</div>
+  </div>
+
+  <div class="section">
+    <div class="label">Alternate Contact</div>
+    <div class="value">📞 8XXXXXXXXX</div>
+  </div>
+
+  <button onclick="getLocation()">Send Location to Family</button>
+</div>
+
+<!-- MARATHI -->
+<div id="mr" style="display:none;">
+  <div class="section">
+    <div class="label">व्यक्तीचे नाव</div>
+    <div class="value">राहुल पाटील</div>
+  </div>
+
+  <div class="section">
+    <div class="label">आपत्कालीन संपर्क</div>
+    <div class="value">📞 9XXXXXXXXX</div>
+  </div>
+
+  <div class="section">
+    <div class="label">पर्यायी संपर्क</div>
+    <div class="value">📞 8XXXXXXXXX</div>
+  </div>
+
+  <button onclick="getLocation()">कुटुंबाला स्थान पाठवा</button>
+</div>
+
+<!-- HINDI -->
+<div id="hi" style="display:none;">
+  <div class="section">
+    <div class="label">व्यक्ति का नाम</div>
+    <div class="value">राहुल पाटिल</div>
+  </div>
+
+  <div class="section">
+    <div class="label">आपातकालीन संपर्क</div>
+    <div class="value">📞 9XXXXXXXXX</div>
+  </div>
+
+  <div class="section">
+    <div class="label">वैकल्पिक संपर्क</div>
+    <div class="value">📞 8XXXXXXXXX</div>
+  </div>
+
+  <button onclick="getLocation()">परिवार को स्थान भेजें</button>
+</div>
+
+<div class="section" id="location"></div>
+
+<div class="footer">
+Helpline • Lost-Person Safety Initiative<br>
+Please stay with the person until family arrives
+</div>
+
+</div>
+
 </body>
 </html>
